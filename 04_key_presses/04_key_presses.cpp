@@ -14,7 +14,7 @@ const int SCREEN_HEIGHT = 480;
 enum KeyPressSurfaces
 {
 	KEY_PRESS_SURFACE_DEFAULT,
-	KEY_PRESS_SURFACE_UP,
+	KEY_PRESS_SURFACE_U,
 	KEY_PRESS_SURFACE_DOWN,
 	KEY_PRESS_SURFACE_LEFT,
 	KEY_PRESS_SURFACE_RIGHT,
@@ -81,7 +81,7 @@ bool loadMedia()
 	bool success = true;
 
 	//Load default surface
-	gKeyPressSurfaces[ KEY_PRESS_SURFACE_DEFAULT ] = loadSurface( "04_key_presses/press.bmp" );
+	gKeyPressSurfaces[ KEY_PRESS_SURFACE_DEFAULT ] = loadSurface( "images/press.bmp" );
 	if( gKeyPressSurfaces[ KEY_PRESS_SURFACE_DEFAULT ] == NULL )
 	{
 		printf( "Failed to load default image!\n" );
@@ -89,15 +89,15 @@ bool loadMedia()
 	}
 
 	//Load up surface
-	gKeyPressSurfaces[ KEY_PRESS_SURFACE_UP ] = loadSurface( "04_key_presses/up.bmp" );
-	if( gKeyPressSurfaces[ KEY_PRESS_SURFACE_UP ] == NULL )
+	gKeyPressSurfaces[ KEY_PRESS_SURFACE_U ] = loadSurface( "images/up.bmp" );
+	if( gKeyPressSurfaces[ KEY_PRESS_SURFACE_U ] == NULL )
 	{
 		printf( "Failed to load up image!\n" );
 		success = false;
 	}
 
 	//Load down surface
-	gKeyPressSurfaces[ KEY_PRESS_SURFACE_DOWN ] = loadSurface( "04_key_presses/down.bmp" );
+	gKeyPressSurfaces[ KEY_PRESS_SURFACE_DOWN ] = loadSurface( "images/down.bmp" );
 	if( gKeyPressSurfaces[ KEY_PRESS_SURFACE_DOWN ] == NULL )
 	{
 		printf( "Failed to load down image!\n" );
@@ -105,7 +105,7 @@ bool loadMedia()
 	}
 
 	//Load left surface
-	gKeyPressSurfaces[ KEY_PRESS_SURFACE_LEFT ] = loadSurface( "04_key_presses/left.bmp" );
+	gKeyPressSurfaces[ KEY_PRESS_SURFACE_LEFT ] = loadSurface( "images/left.bmp" );
 	if( gKeyPressSurfaces[ KEY_PRESS_SURFACE_LEFT ] == NULL )
 	{
 		printf( "Failed to load left image!\n" );
@@ -113,7 +113,7 @@ bool loadMedia()
 	}
 
 	//Load right surface
-	gKeyPressSurfaces[ KEY_PRESS_SURFACE_RIGHT ] = loadSurface( "04_key_presses/right.bmp" );
+	gKeyPressSurfaces[ KEY_PRESS_SURFACE_RIGHT ] = loadSurface( "images/right.bmp" );
 	if( gKeyPressSurfaces[ KEY_PRESS_SURFACE_RIGHT ] == NULL )
 	{
 		printf( "Failed to load right image!\n" );
@@ -193,10 +193,11 @@ int main( int argc, char* args[] )
 					else if( e.type == SDL_KEYDOWN )
 					{
 						//Select surfaces based on key press
+						// refer to https://wiki.libsdl.org/SDL_Keycode for key Codes
 						switch( e.key.keysym.sym )
 						{
 							case SDLK_UP:
-							gCurrentSurface = gKeyPressSurfaces[ KEY_PRESS_SURFACE_UP ];
+							gCurrentSurface = gKeyPressSurfaces[ KEY_PRESS_SURFACE_U ];
 							break;
 
 							case SDLK_DOWN:
