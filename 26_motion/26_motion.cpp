@@ -38,7 +38,7 @@ class LTexture
 		//Set blending
 		void setBlendMode( SDL_BlendMode blending );
 
-		//Set alpha modulation
+		//Set alpha modulation how opaque
 		void setAlpha( Uint8 alpha );
 
 		//Renders texture at given point
