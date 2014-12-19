@@ -78,6 +78,9 @@ class Dot
 
 		//mouse position
 		int x, y;
+
+		//increment postion
+		int xPos, yPos;
 };
 
 //Starts up SDL and creates window
@@ -204,34 +207,6 @@ Dot::Dot()
 }
 
 /*
-void Dot::handleEvent( SDL_Event& e )
-{
-    //If a key was pressed
-	if( e.type == SDL_KEYDOWN && e.key.repeat == 0 )
-    {
-        //Adjust the velocity
-        switch( e.key.keysym.sym )
-        {
-            case SDLK_UP: mVelY -= DOT_VEL; break;
-            case SDLK_DOWN: mVelY += DOT_VEL; break;
-            case SDLK_LEFT: mVelX -= DOT_VEL; break;
-            case SDLK_RIGHT: mVelX += DOT_VEL; break;
-        }
-    }
-    //If a key was released
-    else if( e.type == SDL_KEYUP && e.key.repeat == 0 )
-    {
-        //Adjust the velocity
-        switch( e.key.keysym.sym )
-        {
-            case SDLK_UP: mVelY += DOT_VEL; break;
-            case SDLK_DOWN: mVelY -= DOT_VEL; break;
-            case SDLK_LEFT: mVelX += DOT_VEL; break;
-            case SDLK_RIGHT: mVelX -= DOT_VEL; break;
-        }
-    }
-}*/
-
 void Dot::handleEvent( SDL_Event* e )
 {
     //If mouse is moving
@@ -260,32 +235,64 @@ void Dot::handleEvent( SDL_Event* e )
 		{
 			mVelX += DOT_VEL;
 		}
+    }
+
+}*/
+
+void Dot::handleEvent( SDL_Event* e )
+{
+    //If mouse is moving
+	if(e->type == SDL_MOUSEMOTION)
+    {
+        //Adjust the postion
+        x=e->motion.xrel;
+        y=e->motion.yrel;
+
+	    if(y < 0 )
+		{
+			yPos -= 1;
+		}
+		//Mouse is right of the button
+		else if(y> 0)
+		{
+			yPos += 1;
+		}
+		//Mouse above the button
+		else if( x< 0)
+		{
+			xPos -= 1;
+		}
+		//Mouse below the button
+		else if( x < 0 )
+		{
+			xPos += 1;
+		}
 
 
     }
-    //If a key was released
+
 }
 
 void Dot::move()
 {
     //Move the dot left or right
-    mPosX += mVelX;
+    mPosX += xPos;
 
     //If the dot went too far to the left or right
     if( ( mPosX < 0 ) || ( mPosX + DOT_WIDTH > SCREEN_WIDTH ) )
     {
         //Move back
-        mPosX -= mVelX;
+        mPosX -= xPos;
     }
 
     //Move the dot up or down
-    mPosY += mVelY;
+    mPosY += yPos;
 
     //If the dot went too far up or down
     if( ( mPosY < 0 ) || ( mPosY + DOT_HEIGHT > SCREEN_HEIGHT ) )
     {
         //Move back
-        mPosY -= mVelY;
+        mPosY -= yPos;
     }
 }
 
