@@ -80,7 +80,7 @@ class Dot
 		int x, y;
 
 		//increment postion
-		int xPos, yPos;
+		int xPos = 0, yPos = 0;
 };
 
 //Starts up SDL and creates window
@@ -242,7 +242,7 @@ void Dot::handleEvent( SDL_Event* e )
 void Dot::handleEvent( SDL_Event* e )
 {
     //If mouse is moving
-	if(e->type == SDL_MOUSEMOTION)
+	if(e->type == SDL_MOUSEMOTION )
     {
         //Adjust the postion
         x=e->motion.xrel;
@@ -252,22 +252,26 @@ void Dot::handleEvent( SDL_Event* e )
 		{
 			yPos -= 1;
 		}
-		//Mouse is right of the button
-		else if(y> 0)
+
+		else if(y > 0)
 		{
 			yPos += 1;
 		}
-		//Mouse above the button
-		else if( x< 0)
+
+		else if( x < 0)
 		{
 			xPos -= 1;
 		}
-		//Mouse below the button
-		else if( x < 0 )
+
+		else if( x > 0 )
 		{
 			xPos += 1;
 		}
-
+        //check if mouse is stationary
+        /*else if(x){
+        }
+        else if(y){
+        }*/
 
     }
 
