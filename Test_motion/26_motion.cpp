@@ -255,11 +255,12 @@ void Dot::move()
 
 void Dot::handleEvent( SDL_Event* e )
 {
+    //hide sthe cursor
+    SDL_ShowCursor(SDL_DISABLE);
     //If mouse is moving
-    int inc = 3;
-	if(e->type == SDL_MOUSEMOTION )
+    if(e->type == SDL_MOUSEMOTION )
     {
-       //gives the position of the mouse
+     /*****gives the position of the mouse*****/
         mouseX=e->motion.x;
         mouseY=e->motion.y;
 
