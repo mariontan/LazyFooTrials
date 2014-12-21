@@ -63,9 +63,6 @@ class Dot
 		//Takes key presses and adjusts the dot's velocity
 		void handleEvent( SDL_Event* e );
 
-		//Moves the dot
-		void move();
-
 		//Shows the dot on the screen
 		void render();
 
@@ -73,14 +70,11 @@ class Dot
 		//The X and Y offsets of the dot
 		int mPosX, mPosY;
 
-		//The velocity of the dot
-		int mVelX, mVelY;
-
 		//mouse position
 		int x, y;
 
 		//increment postion
-		int xPos = 0, yPos = 0;
+		int xPos, yPos;
 };
 
 //Starts up SDL and creates window
@@ -124,7 +118,7 @@ bool LTexture::loadFromFile( std::string path )
 	SDL_Texture* newTexture = NULL;
 
 	//Load image at specified path
-	SDL_Surface* loadedSurface = IMG_Load( "Images/dot.bmp" );
+	SDL_Surface* loadedSurface = IMG_Load( path.c_str() );
 	if( loadedSurface == NULL )
 	{
 		printf( "Unable to load image %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError() );
@@ -201,9 +195,6 @@ Dot::Dot()
     mPosX = 0;
     mPosY = 0;
 
-    //Initialize the velocity
-    mVelX = 0;
-    mVelY = 0;
 }
 
 /*
@@ -237,46 +228,7 @@ void Dot::handleEvent( SDL_Event* e )
 		}
     }
 
-}*/
-
-void Dot::handleEvent( SDL_Event* e )
-{
-    //If mouse is moving
-	if(e->type == SDL_MOUSEMOTION )
-    {
-        //Adjust the postion
-        x=e->motion.xrel;
-        y=e->motion.yrel;
-
-	    if(y < 0 )
-		{
-			yPos -= 1;
-		}
-
-		else if(y > 0)
-		{
-			yPos += 1;
-		}
-
-		else if( x < 0)
-		{
-			xPos -= 1;
-		}
-
-		else if( x > 0 )
-		{
-			xPos += 1;
-		}
-        //check if mouse is stationary
-        /*else if(x){
-        }
-        else if(y){
-        }*/
-
-    }
-
 }
-
 void Dot::move()
 {
     //Move the dot left or right
@@ -299,11 +251,27 @@ void Dot::move()
         mPosY -= yPos;
     }
 }
+*/
+
+void Dot::handleEvent( SDL_Event* e )
+{
+    //If mouse is moving
+    int inc = 3;
+	if(e->type == SDL_MOUSEMOTION )
+    {
+       //gives the position of the mouse
+        x=e->motion.x;
+        y=e->motion.y;
+    }
+
+}
+
+
 
 void Dot::render()
 {
     //Show the dot
-	gDotTexture.render( mPosX, mPosY );
+	gDotTexture.render( x, y );
 }
 
 bool init()
@@ -366,7 +334,7 @@ bool loadMedia()
 	bool success = true;
 
 	//Load dot texture
-	if( !gDotTexture.loadFromFile( "26_motion/dot.bmp" ) )
+	if( !gDotTexture.loadFromFile( "Images/dot.bmp" ) )
 	{
 		printf( "Failed to load dot texture!\n" );
 		success = false;
@@ -431,9 +399,6 @@ int main( int argc, char* args[] )
 					//Handle input for the dot
 					dot.handleEvent( &e );
 				}
-
-				//Move the dot
-				dot.move();
 
 				//Clear screen
 				SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
