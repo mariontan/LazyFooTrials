@@ -72,9 +72,6 @@ class Dot
 
 		//mouse position
 		int x, y;
-
-		//increment postion
-		int xPos, yPos;
 };
 
 //Starts up SDL and creates window
