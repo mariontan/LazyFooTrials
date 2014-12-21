@@ -406,13 +406,14 @@ int main( int argc, char* args[] )
 				//Handle events on queue
 				while( SDL_PollEvent( &e ) != 0 )
 				{
-					//User requests quit
-					if( e.type == SDL_QUIT )
+					//User quits by closing window or pressing end
+					if( e.type == SDL_QUIT || e.type == SDL_KEYDOWN )
 					{
 						quit = true;
+						if(e.key.keysym.sym == SDLK_END)
+                            quit = true;
 					}
-
-					//Handle input for the dot
+                    //Handle input for the dot
 					dot.handleEvent( &e );
 				}
 
