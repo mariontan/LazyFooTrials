@@ -71,7 +71,7 @@ class Dot
 		int mPosX, mPosY;
 
 		//mouse position
-		int x, y;
+		int mouseX, mouseY;
 };
 
 //Starts up SDL and creates window
@@ -192,6 +192,9 @@ Dot::Dot()
     mPosX = 0;
     mPosY = 0;
 
+    mouseX = 0;
+    mouseY = 0;
+
 }
 
 /*
@@ -257,8 +260,8 @@ void Dot::handleEvent( SDL_Event* e )
 	if(e->type == SDL_MOUSEMOTION )
     {
        //gives the position of the mouse
-        x=e->motion.x;
-        y=e->motion.y;
+        mouseX=e->motion.x;
+        mouseY=e->motion.y;
     }
 
 }
@@ -267,8 +270,8 @@ void Dot::handleEvent( SDL_Event* e )
 
 void Dot::render()
 {
-    //Show the dot
-	gDotTexture.render( x, y );
+    //Show the dot and renders the ball directly to the position of the mouse
+	gDotTexture.render( mouseX, mouseY );
 }
 
 bool init()
