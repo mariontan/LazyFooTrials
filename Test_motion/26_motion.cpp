@@ -4,6 +4,7 @@ and may not be redistributed without written permission.*/
 //things I removed functions: setBlendMode, setAlpha, setColor
 //the timer class
 
+/**www.opengameart.org source of spaceship**/
 //Using SDL, SDL_image, standard IO, and strings
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
@@ -197,61 +198,6 @@ Dot::Dot()
 
 }
 
-/*
-void Dot::handleEvent( SDL_Event* e )
-{
-    //If mouse is moving
-	if(e->type == SDL_MOUSEMOTION)
-    {
-        //Adjust the postion
-        x=e->motion.xrel;
-        y=e->motion.yrel;
-
-	    if(y < 0 )
-		{
-			mVelY -= DOT_VEL;
-		}
-		//Mouse is right of the button
-		else if(y> 0)
-		{
-			mVelY += DOT_VEL;
-		}
-		//Mouse above the button
-		else if( x< 0)
-		{
-			mVelX -= DOT_VEL;
-		}
-		//Mouse below the button
-		else if( x < 0 )
-		{
-			mVelX += DOT_VEL;
-		}
-    }
-
-}
-void Dot::move()
-{
-    //Move the dot left or right
-    mPosX += xPos;
-
-    //If the dot went too far to the left or right
-    if( ( mPosX < 0 ) || ( mPosX + DOT_WIDTH > SCREEN_WIDTH ) )
-    {
-        //Move back
-        mPosX -= xPos;
-    }
-
-    //Move the dot up or down
-    mPosY += yPos;
-
-    //If the dot went too far up or down
-    if( ( mPosY < 0 ) || ( mPosY + DOT_HEIGHT > SCREEN_HEIGHT ) )
-    {
-        //Move back
-        mPosY -= yPos;
-    }
-}
-*/
 
 void Dot::handleEvent( SDL_Event* e )
 {
@@ -350,7 +296,7 @@ bool loadMedia()
 	bool success = true;
 
 	//Load dot texture
-	if( !gDotTexture.loadFromFile( "Images/dot.bmp" ) )
+	if( !gDotTexture.loadFromFile( "Images/index.bmp" ) )
 	{
 		printf( "Failed to load dot texture!\n" );
 		success = false;
