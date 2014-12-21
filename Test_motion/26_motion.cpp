@@ -262,6 +262,21 @@ void Dot::handleEvent( SDL_Event* e )
        //gives the position of the mouse
         mouseX=e->motion.x;
         mouseY=e->motion.y;
+
+     /*****prevents the ball from going out of the screen*****/
+    //If the dot went too far to the left or right
+    if( ( mouseX < 0 ) || ( mouseX + DOT_WIDTH > SCREEN_WIDTH ) )
+    {
+        mouseX = 0;
+        mouseX = SCREEN_WIDTH-DOT_WIDTH;
+    }
+
+    //If the dot went too far up or down
+    if( ( mouseY < 0 ) || ( mouseY + DOT_HEIGHT > SCREEN_HEIGHT ) )
+    {
+        mouseY = 0;
+        mouseY = SCREEN_HEIGHT-DOT_HEIGHT;
+    }
     }
 
 }
