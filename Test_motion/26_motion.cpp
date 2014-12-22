@@ -55,9 +55,6 @@ class ship
 		static const int ship_WIDTH = 20;
 		static const int ship_HEIGHT = 20;
 
-		//Maximum axis velocity of the ship
-		static const int ship_VEL = 10;
-
 		//Initializes the variables
 		ship();
 
@@ -73,20 +70,15 @@ class ship
 
 		//mouse position
 		int mouseX, mouseY;
-};/*
+};
 class comet
 {
+    public:
         static const int COMET_WIDTH = 20;
 		static const int COMET_HEIGHT = 20;
 
-
-
-
 		//Initializes the variables
-		Doship;
-
-		//Takes key presses and adjusts the doship velocity
-		void handleEvent( SDL_Event* e );
+		comet();
 
 		//Shows the doshipn the screen
 		void render();
@@ -95,8 +87,8 @@ class comet
 		//The X and Y offsets of the doship	int mPosX, mPosY;
 
 		//mouse position
-		int mouseX, mouseY;
-};*/
+		int cometX, cometY;
+};
 //Starts up SDL and creates window
 bool init();
 
@@ -114,6 +106,7 @@ SDL_Renderer* gRenderer = NULL;
 
 //Scene textures
 LTexture gshipTexture;
+LTexture cometTexture;
 
 LTexture::LTexture()
 {
@@ -220,6 +213,11 @@ ship::ship()
 
 }
 
+comet::comet()
+{
+	cometX = 0;
+	cometY = 0;
+}
 
 void ship::handleEvent( SDL_Event* e )
 {
@@ -250,12 +248,16 @@ void ship::handleEvent( SDL_Event* e )
 
 }
 
-
-
 void ship::render()
 {
     //Show the ship and renders the ball directly to the position of the mouse
 	gshipTexture.render( mouseX, mouseY );
+}
+
+void comet::render()
+{
+    //renders the comet to the screen
+	cometTexture.render( cometX, cometY );
 }
 
 bool init()
@@ -323,7 +325,11 @@ bool loadMedia()
 		printf( "Failed to load ship texture!\n" );
 		success = false;
 	}
-
+    if( !cometTexture.loadFromFile( "Images/dot.bmp" ) )
+	{
+		printf( "Failed to load ship texture!\n" );
+		success = false;
+	}
 	return success;
 }
 
@@ -367,7 +373,7 @@ int main( int argc, char* args[] )
 
 			//The ship that will be moving around on the screen
 			ship ship;
-
+            comet comet;
 			//While application is running
 			while( !quit )
 			{
@@ -391,7 +397,7 @@ int main( int argc, char* args[] )
 
 				//Render objects
 				ship.render();
-
+                comet.render();
 				//Update screen
 				SDL_RenderPresent( gRenderer );
 			}
