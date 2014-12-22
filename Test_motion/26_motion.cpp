@@ -47,34 +47,56 @@ class LTexture
 		int mHeight;
 };
 
-//The dot that will move around on the screen
-class Dot
+//The ship that will move around on the screen
+class ship
 {
     public:
-		//The dimensions of the dot
-		static const int DOT_WIDTH = 20;
-		static const int DOT_HEIGHT = 20;
+		//The dimensions of the ship
+		static const int ship_WIDTH = 20;
+		static const int ship_HEIGHT = 20;
 
-		//Maximum axis velocity of the dot
-		static const int DOT_VEL = 10;
+		//Maximum axis velocity of the ship
+		static const int ship_VEL = 10;
 
 		//Initializes the variables
-		Dot();
+		ship();
 
-		//Takes key presses and adjusts the dot's velocity
+		//Takes key presses and adjusts the ship's velocity
 		void handleEvent( SDL_Event* e );
 
-		//Shows the dot on the screen
+		//Shows the ship on the screen
 		void render();
 
     private:
-		//The X and Y offsets of the dot
+		//The X and Y offsets of the ship
 		int mPosX, mPosY;
 
 		//mouse position
 		int mouseX, mouseY;
-};
+};/*
+class comet
+{
+        static const int COMET_WIDTH = 20;
+		static const int COMET_HEIGHT = 20;
 
+
+
+
+		//Initializes the variables
+		Doship;
+
+		//Takes key presses and adjusts the doship velocity
+		void handleEvent( SDL_Event* e );
+
+		//Shows the doshipn the screen
+		void render();
+
+    private:
+		//The X and Y offsets of the doship	int mPosX, mPosY;
+
+		//mouse position
+		int mouseX, mouseY;
+};*/
 //Starts up SDL and creates window
 bool init();
 
@@ -91,7 +113,7 @@ SDL_Window* gWindow = NULL;
 SDL_Renderer* gRenderer = NULL;
 
 //Scene textures
-LTexture gDotTexture;
+LTexture gshipTexture;
 
 LTexture::LTexture()
 {
@@ -187,7 +209,7 @@ int LTexture::getHeight()
 }
 
 
-Dot::Dot()
+ship::ship()
 {
     //Initialize the offsets
     mPosX = 0;
@@ -199,7 +221,7 @@ Dot::Dot()
 }
 
 
-void Dot::handleEvent( SDL_Event* e )
+void ship::handleEvent( SDL_Event* e )
 {
     //hide sthe cursor
     SDL_ShowCursor(SDL_DISABLE);
@@ -211,18 +233,18 @@ void Dot::handleEvent( SDL_Event* e )
         mouseY=e->motion.y;
 
      /*****prevents the ball from going out of the screen*****/
-    //If the dot went too far to the left or right
-    if( ( mouseX < 0 ) || ( mouseX + DOT_WIDTH > SCREEN_WIDTH ) )
+    //If the ship went too far to the left or right
+    if( ( mouseX < 0 ) || ( mouseX + ship_WIDTH > SCREEN_WIDTH ) )
     {
         mouseX = 0;
-        mouseX = SCREEN_WIDTH-DOT_WIDTH;
+        mouseX = SCREEN_WIDTH-ship_WIDTH;
     }
 
-    //If the dot went too far up or down
-    if( ( mouseY < 0 ) || ( mouseY + DOT_HEIGHT > SCREEN_HEIGHT ) )
+    //If the ship went too far up or down
+    if( ( mouseY < 0 ) || ( mouseY + ship_HEIGHT > SCREEN_HEIGHT ) )
     {
         mouseY = 0;
-        mouseY = SCREEN_HEIGHT-DOT_HEIGHT;
+        mouseY = SCREEN_HEIGHT-ship_HEIGHT;
     }
     }
 
@@ -230,10 +252,10 @@ void Dot::handleEvent( SDL_Event* e )
 
 
 
-void Dot::render()
+void ship::render()
 {
-    //Show the dot and renders the ball directly to the position of the mouse
-	gDotTexture.render( mouseX, mouseY );
+    //Show the ship and renders the ball directly to the position of the mouse
+	gshipTexture.render( mouseX, mouseY );
 }
 
 bool init()
@@ -295,10 +317,10 @@ bool loadMedia()
 	//Loading success flag
 	bool success = true;
 
-	//Load dot texture
-	if( !gDotTexture.loadFromFile( "Images/index.bmp" ) )
+	//Load ship texture
+	if( !gshipTexture.loadFromFile( "Images/index.bmp" ) )
 	{
-		printf( "Failed to load dot texture!\n" );
+		printf( "Failed to load ship texture!\n" );
 		success = false;
 	}
 
@@ -308,7 +330,7 @@ bool loadMedia()
 void close()
 {
 	//Free loaded images
-	gDotTexture.free();
+	gshipTexture.free();
 
 	//Destroy window
 	SDL_DestroyRenderer( gRenderer );
@@ -343,8 +365,8 @@ int main( int argc, char* args[] )
 			//Event handler
 			SDL_Event e;
 
-			//The dot that will be moving around on the screen
-			Dot dot;
+			//The ship that will be moving around on the screen
+			ship ship;
 
 			//While application is running
 			while( !quit )
@@ -359,8 +381,8 @@ int main( int argc, char* args[] )
 						if(e.key.keysym.sym == SDLK_END)
                             quit = true;
 					}
-                    //Handle input for the dot
-					dot.handleEvent( &e );
+                    //Handle input for the ship
+					ship.handleEvent( &e );
 				}
 
 				//Clear screen
@@ -368,7 +390,7 @@ int main( int argc, char* args[] )
 				SDL_RenderClear( gRenderer );
 
 				//Render objects
-				dot.render();
+				ship.render();
 
 				//Update screen
 				SDL_RenderPresent( gRenderer );
@@ -381,3 +403,10 @@ int main( int argc, char* args[] )
 
 	return 0;
 }
+/**Notes**/
+/*
+for collision detection possible algorithm is
+mouseX and mouseY are the coordinates
+if(mouseY+imageHeight/2||mouseY-imageHeight/2||mouseX+imageWitdth/2||mouseX-imagewidth/2)
+{hit
+*/
