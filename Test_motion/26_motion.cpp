@@ -10,6 +10,7 @@ and may not be redistributed without written permission.*/
 #include <SDL2/SDL_image.h>
 #include <stdio.h>
 #include <string>
+#include <cmath>
 
 //Screen dimension constants
 const int SCREEN_WIDTH = 640;
@@ -80,13 +81,11 @@ class comet
 		//Initializes the variables
 		comet();
 
-		//Shows the doshipn the screen
+        //Shows the comet on the screen
 		void render();
 
     private:
-		//The X and Y offsets of the doship	int mPosX, mPosY;
-
-		//mouse position
+		//comet position
 		int cometX, cometY;
 };
 //Starts up SDL and creates window
@@ -215,6 +214,7 @@ ship::ship()
 
 comet::comet()
 {
+	//initial position
 	cometX = 0;
 	cometY = 0;
 }
@@ -248,6 +248,7 @@ void ship::handleEvent( SDL_Event* e )
 
 }
 
+
 void ship::render()
 {
     //Show the ship and renders the ball directly to the position of the mouse
@@ -257,7 +258,22 @@ void ship::render()
 void comet::render()
 {
     //renders the comet to the screen
-	cometTexture.render( cometX, cometY );
+	cometX += 1;
+	cometY += 1;
+	if( ( cometX < 0 ) || ( cometX + COMET_WIDTH > SCREEN_WIDTH ) )
+    {
+        cometX += 10;
+        cometX -= 90;
+    }
+
+    //If the ship went too far up or down
+    if( ( cometY < 0 ) || ( cometY + COMET_HEIGHT > SCREEN_HEIGHT ) )
+    {
+        cometY += 11;
+        cometY -= 90;
+    }
+
+	cometTexture.render(cometX, cometY );
 }
 
 bool init()
