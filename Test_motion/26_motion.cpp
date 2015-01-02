@@ -82,7 +82,7 @@ class comet
 		comet();
 
         //Shows the comet on the screen
-		void render();
+		void render(int i);
 
     private:
 		//comet position
@@ -255,22 +255,20 @@ void ship::render()
 	gshipTexture.render( mouseX, mouseY );
 }
 
-void comet::render()
+void comet::render(int i)
 {
     //renders the comet to the screen
-	cometX += 1;
-	cometY += 1;
+	cometX += i;
+	cometY += i;
 	if( ( cometX < 0 ) || ( cometX + COMET_WIDTH > SCREEN_WIDTH ) )
     {
-        cometX += 10;
-        cometX -= 90;
+        cometX = 0;
     }
 
     //If the ship went too far up or down
     if( ( cometY < 0 ) || ( cometY + COMET_HEIGHT > SCREEN_HEIGHT ) )
     {
-        cometY += 11;
-        cometY -= 90;
+        cometY = 0;
     }
 
 	cometTexture.render(cometX, cometY );
@@ -389,7 +387,7 @@ int main( int argc, char* args[] )
 
 			//The ship that will be moving around on the screen
 			ship ship;
-            comet comet;
+            comet comet1, comet2, comet3;
 			//While application is running
 			while( !quit )
 			{
@@ -413,7 +411,9 @@ int main( int argc, char* args[] )
 
 				//Render objects
 				ship.render();
-                comet.render();
+                comet1.render(20);
+                comet2.render(10);
+                comet3.render(10);
 				//Update screen
 				SDL_RenderPresent( gRenderer );
 			}
